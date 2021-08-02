@@ -1,0 +1,20 @@
+.search-form {
+	padding : 10px;
+}
+
+.search-form div {
+	padding : 5px 0 5px 0;
+}
+
+.search-form div span {
+	display : inline-block;
+}
+
+.search-form div input {
+	width : 70%;
+}
+
+.search-form button {
+	margin-top : 8px;
+	width : 150px;
+}

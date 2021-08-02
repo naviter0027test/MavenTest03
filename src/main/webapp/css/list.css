@@ -1,0 +1,13 @@
+#content .body .list {
+	margin : 10px 0 0 0;
+	width : 100%;
+}
+
+#content .body .list thead {
+	background : #ffe6f0;
+	border-bottom : 3px solid #ff80b3;
+}
+
+#content .body .list td {
+	padding : 8px 5px 8px 5px;
+}

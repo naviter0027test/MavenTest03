@@ -1,0 +1,68 @@
+body {
+	margin : 0px;
+}
+
+#header {
+}
+
+#header h1 {
+	margin : 0;
+	padding : 10px 0 10px 0;
+	
+}
+
+#header h1 span.icon {
+	color : #ffb3b3;
+}
+
+#header h1 span.logo {
+	color : black;
+	font-family : 標楷體;
+	vertical-align : top;
+}
+
+#nav {
+	background : #ffe6f0;
+}
+
+#nav .item {
+	display : inline-block;
+	padding : 8px;
+	width : 17%;
+	
+	text-decoration: none; 
+}
+
+#nav .item .icon {
+	color : #ffb3d1;
+}
+
+#nav .item .item-text {
+	color : black;
+	font-family : 標楷體;
+	font-size : 20px;
+}
+
+#nav .item:hover .icon {
+	color : #ff4d94;
+}
+
+#nav .item:hover {
+	background : #b30047;
+}
+
+#nav .item:hover .item-text {
+	color : white;
+}
+
+#nav .clicked .icon {
+	color : #ff4d94;
+}
+
+#nav .clicked .item-text {
+	color : white;
+}
+
+#nav .clicked {
+	background : #b30047;
+}
