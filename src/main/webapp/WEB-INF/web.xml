@@ -3,5 +3,24 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
+  	<display-name>MavenTest03 Application</display-name>
+  
+  	<servlet>
+  		<servlet-name>HelloServlet</servlet-name>
+    	<servlet-class>HelloServlet</servlet-class>
+  	</servlet>
+  	<servlet-mapping>
+        <servlet-name>HelloServlet</servlet-name>
+        <url-pattern>/HelloServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+  		<servlet-name>Index</servlet-name>
+    	<servlet-class>Index</servlet-class>
+  	</servlet>
+    <servlet-mapping>
+        <servlet-name>Index</servlet-name>
+        <url-pattern>/Index</url-pattern>
+    </servlet-mapping>
+    
 </web-app>
