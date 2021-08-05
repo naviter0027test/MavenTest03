@@ -14,13 +14,48 @@
         <url-pattern>/HelloServlet</url-pattern>
     </servlet-mapping>
     
+    <servlet-mapping>
+        <servlet-name>Index</servlet-name>
+        <url-pattern>/index</url-pattern>
+    </servlet-mapping>
     <servlet>
   		<servlet-name>Index</servlet-name>
     	<servlet-class>Index</servlet-class>
   	</servlet>
-    <servlet-mapping>
-        <servlet-name>Index</servlet-name>
-        <url-pattern>/Index</url-pattern>
-    </servlet-mapping>
     
+    <servlet-mapping>
+        <servlet-name>About</servlet-name>
+        <url-pattern>/about</url-pattern>
+    </servlet-mapping>
+    <servlet>
+  		<servlet-name>About</servlet-name>
+    	<servlet-class>tst.page.About</servlet-class>
+  	</servlet>
+    
+    <servlet-mapping>
+        <servlet-name>Search</servlet-name>
+        <url-pattern>/search</url-pattern>
+    </servlet-mapping>
+    <servlet>
+  		<servlet-name>Search</servlet-name>
+    	<servlet-class>tst.page.Search</servlet-class>
+  	</servlet>
+  	
+    <servlet-mapping>
+        <servlet-name>List</servlet-name>
+        <url-pattern>/list</url-pattern>
+    </servlet-mapping>
+    <servlet>
+  		<servlet-name>List</servlet-name>
+    	<servlet-class>tst.page.List</servlet-class>
+  	</servlet>
+  	
+    <servlet-mapping>
+        <servlet-name>Faq</servlet-name>
+        <url-pattern>/faq</url-pattern>
+    </servlet-mapping>
+    <servlet>
+  		<servlet-name>Faq</servlet-name>
+    	<servlet-class>tst.page.Faq</servlet-class>
+  	</servlet>
 </web-app>

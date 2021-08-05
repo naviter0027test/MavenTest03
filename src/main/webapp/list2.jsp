@@ -1,5 +1,3 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.HashMap"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
 	<head>
@@ -8,6 +6,7 @@
 		<link href='lib/bootstrap/dist/css/bootstrap-theme.min.css' rel='stylesheet' />
 		<link href='css/header.css' rel='stylesheet' />
 		<link href='css/content.css' rel='stylesheet' />
+		<link href='css/list.css' rel='stylesheet' />
 		<title>捐款首頁</title>
 	</head>
 	<body>
@@ -22,7 +21,7 @@
 				<span class="icon glyphicon glyphicon-user"></span>
 				<span class="item-text">關於我們</span>
 			</a>
-			<a class="item clicked" href="<%= request.getAttribute("root") %>/index">
+			<a class="item" href="<%= request.getAttribute("root") %>/index">
 				<span class="icon glyphicon glyphicon-barcode"></span>
 				<span class="item-text">線上捐款</span>
 			</a>
@@ -30,7 +29,7 @@
 				<span class="icon glyphicon glyphicon-search"></span>
 				<span class="item-text">查詢捐款</span>
 			</a>
-			<a class="item" href="<%= request.getAttribute("root") %>/list">
+			<a class="item clicked" href="<%= request.getAttribute("root") %>/list">
 				<span class="icon glyphicon glyphicon-list-alt"></span>
 				<span class="item-text">芳名錄</span>
 			</a>
@@ -41,19 +40,73 @@
 		</div>
 		<div id="content">
 			<div class="body">
-				<h2>線上捐款</h2>
-				<% if(request.getAttribute("list") != null) { %>
-				<% ArrayList<HashMap> list = (ArrayList<HashMap>) request.getAttribute("list"); %>
-				<% for(int i = 0;i < list.size();++i) { %>
-				<% HashMap<String, String> item = (HashMap<String, String>) list.get(i); %>
-				<div class="product">
-					<img src="https://fakeimg.pl/150/" />
-					<p>專案名 : <%= (String) item.get("title") %></p>
-					<p>一次捐款金額 : <%= (String) item.get("pay") %> NTD</p>
-					<a href="<%= request.getAttribute("root") %>/pay?pid=<%= (String) item.get("projectId") %>">前往捐款</a>
-				</div>
-				<% } %>
-				<% } %>
+				<h2>芳名錄</h2>
+				<table class="list">
+					<thead>
+						<tr>
+							<td>日期</td>
+							<td>專案名稱</td>
+							<td>捐款人</td>
+							<td>金額</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>2021-06-01</td>
+							<td>艾蒙專案</td>
+							<td>陳明德</td>
+							<td>NT$ 300</td>
+						</tr>
+						<tr>
+							<td>2021-06-01</td>
+							<td>艾蒙專案</td>
+							<td>陳明德</td>
+							<td>NT$ 300</td>
+						</tr>
+						<tr>
+							<td>2021-06-01</td>
+							<td>艾蒙專案</td>
+							<td>陳明德</td>
+							<td>NT$ 300</td>
+						</tr>
+						<tr>
+							<td>2021-06-01</td>
+							<td>艾蒙專案</td>
+							<td>陳明德</td>
+							<td>NT$ 300</td>
+						</tr>
+						<tr>
+							<td>2021-06-01</td>
+							<td>艾蒙專案</td>
+							<td>陳明德</td>
+							<td>NT$ 300</td>
+						</tr>
+						<tr>
+							<td>2021-06-01</td>
+							<td>艾蒙專案</td>
+							<td>陳明德</td>
+							<td>NT$ 300</td>
+						</tr>
+						<tr>
+							<td>2021-06-01</td>
+							<td>艾蒙專案</td>
+							<td>陳明德</td>
+							<td>NT$ 300</td>
+						</tr>
+						<tr>
+							<td>2021-06-01</td>
+							<td>艾蒙專案</td>
+							<td>陳明德</td>
+							<td>NT$ 300</td>
+						</tr>
+						<tr>
+							<td>2021-06-01</td>
+							<td>艾蒙專案</td>
+							<td>陳明德</td>
+							<td>NT$ 300</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 			<div id="footer">
 				<h3>洽詢電話：(02) XXXX-XXXX 分機 711、722</h3>
