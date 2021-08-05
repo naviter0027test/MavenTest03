@@ -58,4 +58,13 @@
   		<servlet-name>Faq</servlet-name>
     	<servlet-class>tst.page.Faq</servlet-class>
   	</servlet>
+  	
+  	<servlet-mapping>
+        <servlet-name>Pay</servlet-name>
+        <url-pattern>/pay</url-pattern>
+    </servlet-mapping>
+    <servlet>
+  		<servlet-name>Pay</servlet-name>
+    	<servlet-class>tst.page.Pay</servlet-class>
+  	</servlet>
 </web-app>
