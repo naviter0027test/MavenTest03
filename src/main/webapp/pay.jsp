@@ -42,15 +42,17 @@
 		<div id="content">
 			<div class="body">
 				<h2>線上捐款</h2>
+				<% if(request.getAttribute("project") != null) { %>
+				<% HashMap<String, String> project = (HashMap<String, String>) request.getAttribute("project"); %>
 				<div class="simple-item">
 					<img src="https://fakeimg.pl/150/" />
-					<p>專案名 : TESTXXXX</p>
-					<p>一次捐款金額 : 3200 NTD</p>
+					<p>專案名 : <%= (String) project.get("title") %></p>
+					<p>一次捐款金額 : <%= (String) project.get("pay") %> NTD</p>
 					<p>描述:</p>
-					<div>錯的且系飛景強：理好戰。可運格回資我好開野一念我展此早基感！自時業下立金體這信元的作笑度機條長的。到過食性特事導也童快，調來集在。物見統書利有積星，則理。</div>
+					<div><%= (String) project.get("desc") %></div>
 				</div>
 				<form class="pay-form" method="post" action="<%= request.getAttribute("root") %>/start-pay" >
-					<input type="hidden" name="projectId" value="" />
+					<input type="hidden" name="projectId" value="<%= (String) project.get("id") %>" />
 					<h3>請填寫捐款相關資料</h3>
 					<p>捐款人:</p>
 					<input type="text" name="name" />
@@ -62,6 +64,11 @@
 						<button>確定</button>
 					</p>
 				</form>
+				<% } else { %>
+				<div class="simple-item">
+					<p>無此專案</p>
+				</div>
+				<% }%>
 			</div>
 			<div id="footer">
 				<h3>洽詢電話：(02) XXXX-XXXX 分機 711、722</h3>

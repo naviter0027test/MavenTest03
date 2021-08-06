@@ -12,23 +12,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import tst.mod.ProjectModel;
 
-public class Pay extends HttpServlet {
-	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+public class PayStart extends HttpServlet {
+	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		res.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = res.getWriter();
 		try {
 			req.setAttribute("root", req.getContextPath());
-			String pidStr = req.getParameter("pid");
 			ProjectModel projectModel = new ProjectModel();
 			projectModel.connectMariaDB();
-			
-			int pid = Integer.parseInt(pidStr);
-			HashMap<String, String> project = projectModel.getById(pid);
-			if(project != null)
-				req.setAttribute("project", project);
-			
+
 			projectModel.closeMariaDB();
-			req.getRequestDispatcher("pay.jsp").forward(req, res);
+			out.println("pay start");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			
@@ -39,10 +33,6 @@ public class Pay extends HttpServlet {
 			out.println("mariadb not found driver<br />");
 			out.println(e.getMessage());
 			return;
-		} catch (ServletException e) {
-			throw e;
-		} catch (IOException e) {
-			throw e;
 		} catch (Exception e) {
 			throw e;
 		}

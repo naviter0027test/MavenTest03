@@ -50,4 +50,30 @@ public class ProjectModel {
 		}
     	return res;
     }
+	
+	public HashMap<String, String> getById(int pid) throws SQLException {
+		HashMap<String, String> res = new HashMap<String, String>();
+		if(conn == null)
+			throw new SQLException("not connect");
+
+		String pidStr = Integer.toString(pid);
+		stmt = conn.createStatement();
+    	String proSql = "select `id`, `title`, `desc`, `pay`, `img` from Project where id = "+ pidStr;
+    	ResultSet proResult = stmt.executeQuery(proSql);
+    	boolean isData = false;
+    	
+    	if(proResult != null) {
+			while (proResult.next()) {
+				isData = true;
+				res.put("id", Integer.toString(proResult.getInt(1)));
+				res.put("title", proResult.getString(2));
+				res.put("desc", proResult.getString(3));
+				res.put("pay", Integer.toString(proResult.getInt(4)));
+				res.put("img", proResult.getString(5));
+			}
+		}
+    	if(isData == false)
+    		res = null;
+    	return res;
+	}
 }

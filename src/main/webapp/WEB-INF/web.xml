@@ -67,4 +67,13 @@
   		<servlet-name>Pay</servlet-name>
     	<servlet-class>tst.page.Pay</servlet-class>
   	</servlet>
+  	
+  	<servlet-mapping>
+        <servlet-name>PayStart</servlet-name>
+        <url-pattern>/start-pay</url-pattern>
+    </servlet-mapping>
+    <servlet>
+  		<servlet-name>PayStart</servlet-name>
+    	<servlet-class>tst.page.PayStart</servlet-class>
+  	</servlet>
 </web-app>
