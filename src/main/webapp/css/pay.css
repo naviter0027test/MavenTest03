@@ -1,0 +1,17 @@
+#content .body .simple-item p {
+	margin : 8px 10px 8px 10px;
+}
+
+.simple-item div {
+	padding : 10px;
+}
+
+.pay-form input[type=text] {
+	padding : 3px;
+	margin : 5px 0 5px 10px;
+	width : 200px;
+}
+
+.pay-form button {
+	margin-top : 10px;
+}
