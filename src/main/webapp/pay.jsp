@@ -59,7 +59,7 @@
 					<p>地址:</p>
 					<input type="text" name="address" />
 					<p>捐款方式: <input type="radio" name="payMode" value="1" checked />ATM轉帳</p>
-					<input type="text" name="atmCode" />
+					<input type="text" name="atmCode" placeholder="ATM後五碼" />
 					<p>
 						<button>確定</button>
 					</p>
