@@ -3,6 +3,7 @@ body {
 }
 
 #header {
+	background : #b30047;
 }
 
 #header h1 {
@@ -12,17 +13,17 @@ body {
 }
 
 #header h1 span.icon {
-	color : #ffb3b3;
+	color : #ffffff;
 }
 
 #header h1 span.logo {
-	color : black;
+	color : white;
 	font-family : 標楷體;
 	vertical-align : top;
 }
 
 #nav {
-	background : #ffe6f0;
+	background : #b30047;
 }
 
 #nav .item {
@@ -30,7 +31,9 @@ body {
 	padding : 8px;
 	width : 17%;
 	
-	text-decoration: none; 
+	color : white;
+	text-decoration: none;
+	border-top : 20px solid #b30047;
 }
 
 #nav .item .icon {
@@ -38,7 +41,7 @@ body {
 }
 
 #nav .item .item-text {
-	color : black;
+	color : white;
 	font-family : 標楷體;
 	font-size : 20px;
 }
@@ -48,11 +51,11 @@ body {
 }
 
 #nav .item:hover {
-	background : #b30047;
+	background : #ffffff;
 }
 
 #nav .item:hover .item-text {
-	color : white;
+	color : #ff4d94;
 }
 
 #nav .clicked .icon {
@@ -60,9 +63,10 @@ body {
 }
 
 #nav .clicked .item-text {
-	color : white;
+	color : #b30047;
 }
 
 #nav .clicked {
-	background : #b30047;
+	border-top : 20px solid #b30047;
+	background : white;
 }
