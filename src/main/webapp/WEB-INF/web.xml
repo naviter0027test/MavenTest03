@@ -76,4 +76,22 @@
   		<servlet-name>PayStart</servlet-name>
     	<servlet-class>tst.page.PayStart</servlet-class>
   	</servlet>
+  	
+  	<servlet-mapping>
+        <servlet-name>AdminLoginPage</servlet-name>
+        <url-pattern>/admin-login</url-pattern>
+    </servlet-mapping>
+    <servlet>
+  		<servlet-name>AdminLoginPage</servlet-name>
+    	<servlet-class>tst.admin.page.AdminLogin</servlet-class>
+  	</servlet>
+  	
+  	<servlet-mapping>
+        <servlet-name>AdminHome</servlet-name>
+        <url-pattern>/admin-home</url-pattern>
+    </servlet-mapping>
+    <servlet>
+  		<servlet-name>AdminHome</servlet-name>
+    	<servlet-class>tst.admin.page.AdminHome</servlet-class>
+  	</servlet>
 </web-app>

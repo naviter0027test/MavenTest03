@@ -1,0 +1,28 @@
+.login-form {
+	margin-top : 15px;
+	margin-left : 35%;
+	padding : 20px;
+	width : 350px;
+	
+	box-shadow : 1px 1px 20px 0px #b30047;
+	border-radius: 8px;
+	font-family : 標楷體;
+}
+
+.login-form h2 {
+	margin : 5px 0 15px 0;
+	text-align : center;
+}
+
+.login-form span {
+	margin : 8px;
+}
+
+.login-form input {
+	width : 250px;
+}
+
+.login-form button {
+	margin-top : 5px;
+	width : 100%;
+}
