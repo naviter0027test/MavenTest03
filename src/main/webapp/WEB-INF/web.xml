@@ -94,4 +94,13 @@
   		<servlet-name>AdminHome</servlet-name>
     	<servlet-class>tst.admin.page.AdminHome</servlet-class>
   	</servlet>
+  	
+  	<servlet-mapping>
+        <servlet-name>AdminPass</servlet-name>
+        <url-pattern>/admin-pass</url-pattern>
+    </servlet-mapping>
+    <servlet>
+  		<servlet-name>AdminPass</servlet-name>
+    	<servlet-class>tst.admin.page.AdminPass</servlet-class>
+  	</servlet>
 </web-app>
