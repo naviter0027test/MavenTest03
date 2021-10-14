@@ -27,7 +27,7 @@ public class AdminModel {
 			conn.close();
     }
 	
-	public boolean checkPass(HashMap<String, String> params) throws SQLException {
+	public HashMap<String, String> checkPass(HashMap<String, String> params) throws SQLException {
 		if(conn == null)
 			throw new SQLException("not connect");
 		
@@ -35,18 +35,23 @@ public class AdminModel {
 		String account = (String) params.get("account");
 		String password = (String) params.get("password");
 		boolean res = false;
-		String sql = "select account, password from admin where account = '"+ account+ "'";
+		String sql = "select id, account, password from admin where account = '"+ account+ "'";
 		ResultSet result = stmt.executeQuery(sql);
 
+		HashMap<String, String> adminData = new HashMap<String, String>();
     	if(result != null) {
 			while (result.next()) {
-				String tmpAcc = result.getString(1);
-				String tmpPass = result.getString(2);
-				if(tmpAcc.equals(account) && tmpPass.equals(password))
+				String tmpId = Integer.toString(result.getInt(1));
+				String tmpAcc = result.getString(2);
+				String tmpPass = result.getString(3);
+				if(tmpAcc.equals(account) && tmpPass.equals(password)) {
 					res = true;
+					adminData.put("id", tmpId);
+					adminData.put("account", tmpAcc);
+				}
 			}
 		}
 
-		return res;
+		return adminData;
 	}
 }

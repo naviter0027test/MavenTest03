@@ -103,4 +103,13 @@
   		<servlet-name>AdminPass</servlet-name>
     	<servlet-class>tst.admin.page.AdminPass</servlet-class>
   	</servlet>
+  	
+  	<servlet-mapping>
+        <servlet-name>AdminLogout</servlet-name>
+        <url-pattern>/admin-logout</url-pattern>
+    </servlet-mapping>
+    <servlet>
+  		<servlet-name>AdminLogout</servlet-name>
+    	<servlet-class>tst.admin.page.AdminLogout</servlet-class>
+  	</servlet>
 </web-app>
