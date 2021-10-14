@@ -114,16 +114,16 @@
   	</servlet>
   	
   	<servlet-mapping>
-        <servlet-name>AdminPassUpdate</servlet-name>
-        <url-pattern>/admin-pass-update</url-pattern>
+        <servlet-name>AdminProject</servlet-name>
+        <url-pattern>/admin-project</url-pattern>
     </servlet-mapping>
     <servlet>
-  		<servlet-name>AdminPassUpdate</servlet-name>
-    	<servlet-class>tst.admin.page.AdminPassUpdate</servlet-class>
+  		<servlet-name>AdminProject</servlet-name>
+    	<servlet-class>tst.admin.page.AdminProject</servlet-class>
   	</servlet>
   	
   	<session-config>
     	<session-timeout>120</session-timeout>
 	</session-config>
-  	
+
 </web-app>
