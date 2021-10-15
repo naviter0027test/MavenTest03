@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.HashMap"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
 	<head>
@@ -43,6 +45,9 @@
 		</div>
 		<div class="admin-content">
 			<h3>專案管理</h3>
+			<div class="nav">
+				<a href="admin-project-add">新增</a>
+			</div>
 			<table class="table1">
                 <thead>
                     <tr>
@@ -54,16 +59,22 @@
                     </tr>
                 </thead>
                 <tbody>
+                <% if(request.getAttribute("list") != null) { %>
+				<% ArrayList<HashMap> list = (ArrayList<HashMap>) request.getAttribute("list"); %>
+				<% for(int i = 0;i < list.size();++i) { %>
+				<% HashMap<String, String> item = (HashMap<String, String>) list.get(i); %>
                     <tr>
-                        <td>慈善A</td>
-                        <td>500</td>
-                        <td>2021-10-04 14:03:27</td>
-                        <td>2021-10-04 14:03:27</td>
+                        <td><%= (String) item.get("title") %></td>
+                        <td><%= (String) item.get("pay") %></td>
+                        <td><%= (String) item.get("createdDate") %></td>
+                        <td><%= (String) item.get("updatedDate") %></td>
                         <td>
-                            <a href='admin-project-edit?pid=8953' class="glyphicon glyphicon-pencil"></a>
-                            <a href='admin-project-remove?pid=8953' class="glyphicon glyphicon-remove recordRemove"></a>
+                            <a href='admin-project-edit?pid=<%= (String) item.get("id") %>' class="glyphicon glyphicon-pencil"></a>
+                            <a href='admin-project-remove?pid=<%= (String) item.get("id") %>' class="glyphicon glyphicon-remove recordRemove"></a>
                         </td>
                     </tr>
+                <% } %>
+				<% } %>
                                     <tr>
                         <td>慈善B</td>
                         <td>4200</td>
