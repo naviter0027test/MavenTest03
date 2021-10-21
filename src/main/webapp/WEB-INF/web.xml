@@ -122,6 +122,24 @@
     	<servlet-class>tst.admin.page.AdminProject</servlet-class>
   	</servlet>
   	
+  	<servlet-mapping>
+        <servlet-name>AdminProjectAdd</servlet-name>
+        <url-pattern>/admin-project-add</url-pattern>
+    </servlet-mapping>
+    <servlet>
+  		<servlet-name>AdminProjectAdd</servlet-name>
+    	<servlet-class>tst.admin.page.AdminProjectAdd</servlet-class>
+  	</servlet>
+  	
+  	<servlet-mapping>
+        <servlet-name>AdminProjectEdit</servlet-name>
+        <url-pattern>/admin-project-edit</url-pattern>
+    </servlet-mapping>
+    <servlet>
+  		<servlet-name>AdminProjectEdit</servlet-name>
+    	<servlet-class>tst.admin.page.AdminProjectEdit</servlet-class>
+  	</servlet>
+  	
   	<session-config>
     	<session-timeout>120</session-timeout>
 	</session-config>
