@@ -1,5 +1,6 @@
 package tst.admin.mod;
 
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -36,8 +37,14 @@ public class ProjectModel {
 			throw new SQLException("not connect");
 		
 		stmt = conn.createStatement();
+		int limitStart = 0;
+		int offset = 10;
+		if(params.containsKey("nowPage"))
+			limitStart = offset * (Integer.parseInt((String) params.get("nowPage")) - 1);  
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 		String sql = "select id, title, `desc`, img, pay, createdDate, updatedDate from Project order by id desc";
+		sql += " limit "+ Integer.toString(limitStart)+ ", "+ Integer.toString(offset);
 		ResultSet result = stmt.executeQuery(sql);
 		
 		ArrayList<HashMap<String, String>> lists = new ArrayList<HashMap<String,String>>();
@@ -57,5 +64,23 @@ public class ProjectModel {
 			}
 		}
 		return lists;
+	}
+	
+	public String listsAmount(HashMap<String, String> params) throws SQLException {
+		if(conn == null)
+			throw new SQLException("not connect");
+		
+		stmt = conn.createStatement();
+		String sql = "select count(id) from Project";
+		
+		ResultSet result = stmt.executeQuery(sql);
+		String amount = "0";
+		if(result != null) {
+			while (result.next()) {
+				int a = result.getInt(1);
+				amount = Integer.toString(a);
+			}
+		}
+		return amount;
 	}
 }

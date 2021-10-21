@@ -24,9 +24,21 @@ public class AdminProject extends HttpServlet {
 			return;
 		}
 		HashMap<String, String> params = new HashMap<String, String>();
+		if(req.getParameter("nowPage") != null)
+			params.put("nowPage", req.getParameter("nowPage"));
 		try {
 			projectModel.connectMariaDB();
 			req.setAttribute("list", projectModel.lists(params));
+			if(params.containsKey("nowPage") == false)
+				params.put("nowPage", "1");
+			if(params.containsKey("offset") == false)
+				params.put("offset", "10");
+			String offset = params.get("offset");
+			String amount = projectModel.listsAmount(params);
+			int pageSum = (int) Math.ceil(Double.parseDouble(amount)/Double.parseDouble(offset));
+			req.setAttribute("params", params);
+			req.setAttribute("amount", amount);
+			req.setAttribute("pageSum", Integer.toString(pageSum));
 			req.getRequestDispatcher("admin/project.jsp").forward(req, res);
 		} catch (SQLException | ClassNotFoundException e) {
 			out.println(e.getMessage());

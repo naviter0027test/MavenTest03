@@ -1,5 +1,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.HashMap"%>
+<%@page import="java.lang.Integer"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
 	<head>
@@ -75,21 +76,22 @@
                     </tr>
                 <% } %>
 				<% } %>
-                                    <tr>
-                        <td>慈善B</td>
-                        <td>4200</td>
-                        <td>2021-09-29 13:52:05</td>
-                        <td>2021-09-29 13:52:05</td>
-                        <td>
-                            <a href='admin-project-edit?pid=8952' class="glyphicon glyphicon-pencil"></a>
-                            <a href='admin-project-remove?pid=8952' class="glyphicon glyphicon-remove recordRemove"></a>
-                        </td>
                     </tr>
                 </tbody>
             </table>
 
+			<% String pageSum = (String) request.getAttribute("pageSum"); %>
+			<% HashMap<String, String> params = (HashMap<String, String>) request.getAttribute("params"); %>
+			<% String nowPage = (String) params.get("nowPage"); %>
+			<% String offset = (String) params.get("offset"); %>
             <div class="pagination paginationCenter">
-            	<label>1</label>
+            <% for(int i = 1;i <= Integer.parseInt(pageSum);++i) { %>
+            <% if(i == Integer.parseInt(nowPage)) { %>
+            	<label><%=i%></label>
+            <% } else { %>
+            	<a href="admin-project?nowPage=<%=i%>"><%=i%></a>
+            <% } %>
+            <% } %>
             </div>
 		</div>
 	</body>
