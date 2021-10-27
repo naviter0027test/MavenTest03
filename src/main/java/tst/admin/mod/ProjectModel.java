@@ -99,6 +99,44 @@ public class ProjectModel {
 		return amount;
 	}
 	
+	public HashMap<String, String> getById(int id) throws SQLException {
+		if(conn == null)
+			throw new SQLException("not connect");
+		
+		stmt = conn.createStatement();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		String sql = "select id, title, `desc`, img, pay, createdDate, updatedDate from Project"
+				+ " where id = "+ Integer.toString(id)
+				+ " order by id desc limit 0, 1";
+
+		ResultSet result = stmt.executeQuery(sql);
+		HashMap<String, String> tmp = new HashMap<String, String>();
+		if(result != null) {
+			if (result.next()) {
+				tmp.put("id", Integer.toString(result.getInt(1)));
+				tmp.put("title", result.getString(2));
+				tmp.put("desc", result.getString(3));
+				tmp.put("img", result.getString(4));
+				tmp.put("pay", Integer.toString(result.getInt(5)));
+				Date createdDate = result.getDate(6);
+				tmp.put("createdDate", dateFormat.format(createdDate));
+				Date updatedDate = result.getDate(7);
+				tmp.put("updatedDate", dateFormat.format(updatedDate));
+			}
+			else {
+				tmp.put("id", Integer.toString(id));
+				tmp.put("title", "");
+				tmp.put("desc", "");
+				tmp.put("img", "");
+				tmp.put("pay", "");
+				tmp.put("createdDate", "");
+				tmp.put("updatedDate", "");
+			}
+		}
+		return tmp;
+	}
+	
 	public void add(HttpServletRequest req) throws Exception {	    
 		if(conn == null)
 			throw new SQLException("not connect");

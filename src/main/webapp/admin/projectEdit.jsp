@@ -1,3 +1,5 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="java.lang.Integer"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
 	<head>
@@ -42,26 +44,30 @@
 			</div>
 		</div>
 		<div class="admin-content">
-			<h3>專案管理 - 新增</h3>
-			<form class="form1" method="post" action="admin-project-add"  enctype="multipart/form-data">
+			<h3>專案管理 - 編輯</h3>
+			<form class="form1" method="post" action="admin-project-edit"  enctype="multipart/form-data">
+			<% HashMap<String, String> item = (HashMap<String, String>) request.getAttribute("item"); %>
+			<input type="hidden" name="id" value='<%= (String) item.get("id") %>' />
 				<h5>標題</h5>
 				<p>
-                    <input type="text" name="title" required /> 
+                    <input type="text" name="title" required value='<%= (String) item.get("title") %>' /> 
                     <label for="title" class="error col-xs-12"></label>
                 </p>
                 <h5>描述</h5>
 				<p>
-                    <input type="text" name="desc" required /> 
+                    <input type="text" name="desc" required value='<%= (String) item.get("desc") %>' /> 
                     <label for="desc" class="error col-xs-12"></label>
                 </p>
                 <h5>圖片</h5>
 				<p>
+					<img src='<%= (String) item.get("img") %>' />
+					更換如下:
                     <input type="file" name="img" /> 
                     <label for="img" class="error col-xs-12"></label>
                 </p>
                 <h5>金額</h5>
 				<p>
-                    <input type="number" name="pay" required /> 
+                    <input type="number" name="pay" required value='<%= (String) item.get("pay") %>' /> 
                     <label for="pay" class="error col-xs-12"></label>
                 </p>
 				<button>新增</button>

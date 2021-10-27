@@ -3,6 +3,7 @@ package tst.admin.page;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -11,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 
 import tst.admin.mod.ProjectModel;
 
@@ -21,7 +21,7 @@ import tst.admin.mod.ProjectModel;
   maxFileSize = 1024 * 1024 * 10,      // 10 MB
   maxRequestSize = 1024 * 1024 * 100   // 100 MB
 )
-public class AdminProjectAdd extends HttpServlet {
+public class AdminProjectEdit extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		res.setContentType("text/html; charset=UTF-8");
 		req.setCharacterEncoding("UTF-8");
@@ -32,9 +32,28 @@ public class AdminProjectAdd extends HttpServlet {
 			res.sendRedirect("admin-login");
 			return;
 		}
-		req.getRequestDispatcher("admin/projectAdd.jsp").forward(req, res);
+		int pid = 0;
+		if(req.getParameter("pid") != null)
+			pid = Integer.parseInt(req.getParameter("pid"));
+		try {
+			projectModel.connectMariaDB();
+			HashMap<String, String> item = projectModel.getById(pid);
+			req.setAttribute("item", item);
+		} catch (SQLException | ClassNotFoundException e) {
+			out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		
+		try {
+			projectModel.closeMariaDB();
+		} catch (SQLException e) {
+			out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		
+		req.getRequestDispatcher("admin/projectEdit.jsp").forward(req, res);
 	}
-
+	
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		res.setContentType("text/html; charset=UTF-8");
 		req.setCharacterEncoding("UTF-8");
@@ -46,21 +65,5 @@ public class AdminProjectAdd extends HttpServlet {
 		}
 
 		ProjectModel projectModel = new ProjectModel();
-		
-		try {
-			projectModel.connectMariaDB();
-			projectModel.add(req);
-			projectModel.closeMariaDB();
-			out.println("<meta http-equiv='refresh' content='3; url=admin-project-add'>");
-		    out.println("儲存完成，等待跳轉<br />");
-		} catch (ServletException | IOException | SQLException | ClassNotFoundException e) {
-			out.println(e.getMessage());
-			e.printStackTrace();
-		} catch (Exception e) {
-			out.println(e.getMessage());
-			e.printStackTrace();
-		}
-		//Part filePart = req.getPart("img");
-		//out.println(filePart.getContentType());
 	}
 }
