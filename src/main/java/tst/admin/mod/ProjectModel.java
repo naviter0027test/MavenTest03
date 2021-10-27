@@ -1,16 +1,28 @@
 package tst.admin.mod;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 
 public class ProjectModel {
 	private String connStr = "jdbc:mysql://192.168.3.40:3306/WarmLove?"
@@ -18,6 +30,9 @@ public class ProjectModel {
 			+ "&characterEncoding=UTF-8";
 	private Connection conn = null;
 	private Statement stmt = null;
+	
+	private String filePath = new File( System.getProperty( "catalina.base" ) ).getAbsoluteFile()
+			+"/webapps/MavenTest03/upload";
 	
 	public void connectMariaDB() throws SQLException, ClassNotFoundException {
     	
@@ -83,4 +98,101 @@ public class ProjectModel {
 		}
 		return amount;
 	}
+	
+	public void add(HttpServletRequest req) throws Exception {	    
+		if(conn == null)
+			throw new SQLException("not connect");
+		String title = (String) req.getParameter("title");
+	    String desc = (String) req.getParameter("desc");
+	    int pay = Integer.parseInt((String) req.getParameter("pay"));
+	    Timestamp createdDate = new Timestamp(System.currentTimeMillis());
+	    
+	    stmt = conn.createStatement();
+		String sql = "INSERT INTO Project "
+				+ "(`title`, `desc`, `pay`, "
+				+ "`createdDate`, `updatedDate`) "
+				+ "VALUES (?, ?, ?, ?, ?)";
+    	PreparedStatement prepare = conn.prepareStatement(sql);
+    	prepare.setString(1, title);
+    	prepare.setString(2, desc);
+    	prepare.setInt(3, pay);
+    	prepare.setTimestamp(4, createdDate);
+    	prepare.setTimestamp(5, createdDate);
+    	prepare.executeUpdate();
+		
+	    //以下是將上傳的圖檔存到指定位子
+	    OutputStream out = null;
+	    InputStream filecontent = null;
+		File fileSaveDir = new File(filePath);
+        if (!fileSaveDir.exists()) {
+            fileSaveDir.mkdir();
+        }
+        try {
+	        Part filePart = req.getPart("img");
+	        String fileContentType = filePart.getContentType();
+	        if(fileContentType.equals("image/jpeg") ||
+	        	fileContentType.equals("image/gif") ||
+	        	fileContentType.equals("image/png")) {
+	        	
+	        	String ext = ".jpg";
+	        	if(fileContentType.equals("image/gif"))
+	        		ext = ".gif";
+	        	else if(fileContentType.equals("image/png"))
+	        		ext = ".png";
+        
+		        //將上傳的檔名記錄至資料庫中
+		        sql = "select id from Project "
+		        		+ "where `title` = '" + title + "'"
+		        		+ " and `desc` = '" + desc + "'"
+		        		+ " and `pay` = " + Integer.toString(pay)
+		        		;
+		        ResultSet result = stmt.executeQuery(sql);
+				int id = 0;
+				if(result != null)
+					if (result.next())
+						id = result.getInt(1);
+		        
+				sql = "update Project set img = ? where id = ?";
+				prepare = conn.prepareStatement(sql);
+				String filename = "image_"+ Integer.toString(id)+ ext;
+				prepare.setString(1, filename);
+				prepare.setInt(2, id);
+				prepare.executeUpdate();
+				
+				//將上傳的檔案存到指定地點
+				out = new FileOutputStream(new File(filePath + File.separator
+		                + filename));
+		        filecontent = filePart.getInputStream();
+		
+		        int read = 0;
+		        final byte[] bytes = new byte[1024];
+		
+		        while ((read = filecontent.read(bytes)) != -1) {
+		            out.write(bytes, 0, read);
+		        }
+	        }
+        } catch (FileNotFoundException fne) {
+            throw fne;
+        } catch (Exception e) {
+        	throw e;
+        } finally {
+            if (out != null) {
+                out.close();
+            }
+            if (filecontent != null) {
+                filecontent.close();
+            }
+        }
+	}
+	
+	private String extractFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length()-1);
+            }
+        }
+        return "";
+    }
 }
