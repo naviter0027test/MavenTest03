@@ -81,7 +81,13 @@ public class ProjectModel {
 				res.put("title", proResult.getString(2));
 				res.put("desc", proResult.getString(3));
 				res.put("pay", Integer.toString(proResult.getInt(4)));
-				res.put("img", proResult.getString(5));
+				String imgPath = filePath+ "/"+ proResult.getString(5);
+				File imgFile = new File(imgPath);
+				if(imgFile.exists() == false)
+					imgPath = "https://fakeimg.pl/150/";
+				else
+					imgPath = webPath+ "/"+ proResult.getString(5);
+				res.put("img", imgPath);
 			}
 		}
     	if(isData == false)

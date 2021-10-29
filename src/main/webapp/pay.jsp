@@ -45,7 +45,7 @@
 				<% if(request.getAttribute("project") != null) { %>
 				<% HashMap<String, String> project = (HashMap<String, String>) request.getAttribute("project"); %>
 				<div class="simple-item">
-					<img src="https://fakeimg.pl/150/" />
+					<img src='<%= (String) project.get("img") %>' />
 					<p>專案名 : <%= (String) project.get("title") %></p>
 					<p>一次捐款金額 : <%= (String) project.get("pay") %> NTD</p>
 					<p>描述:</p>

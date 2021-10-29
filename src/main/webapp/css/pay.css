@@ -2,6 +2,11 @@
 	margin : 8px 10px 8px 10px;
 }
 
+#content .body .simple-item img {
+	width : 150px;
+	height : 150px;
+}
+
 .simple-item div {
 	padding : 10px;
 }
