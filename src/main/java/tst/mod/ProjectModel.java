@@ -1,5 +1,6 @@
 package tst.mod;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -15,6 +16,10 @@ public class ProjectModel {
 			+ "&useUnicode=true&characterEncoding=UTF-8";
 	private Connection conn = null;
 	private Statement stmt = null;
+	
+	private String filePath = new File( System.getProperty( "catalina.base" ) ).getAbsoluteFile()
+			+"/webapps/upload";
+	private String webPath = "/upload";
 	
 	public void connectMariaDB() throws SQLException, ClassNotFoundException {
     	
@@ -35,7 +40,7 @@ public class ProjectModel {
 
 		stmt = conn.createStatement();
 		ArrayList<HashMap> res = new ArrayList<HashMap>();
-    	String proSql = "select `id`, `title`, `desc`, `pay` from Project";
+    	String proSql = "select `id`, `title`, `desc`, `img`, `pay` from Project";
     	ResultSet proResult = stmt.executeQuery(proSql);
 
     	if(proResult != null) {
@@ -44,7 +49,14 @@ public class ProjectModel {
 				tmp.put("projectId", Integer.toString(proResult.getInt(1)));
 				tmp.put("title", proResult.getString(2));
 				tmp.put("desc", proResult.getString(3));
-				tmp.put("pay", Integer.toString(proResult.getInt(4)));
+				String imgPath = filePath+ "/"+ proResult.getString(4);
+				File imgFile = new File(imgPath);
+				if(imgFile.exists() == false)
+					imgPath = "https://fakeimg.pl/150/";
+				else
+					imgPath = webPath+ "/"+ proResult.getString(4);
+				tmp.put("img", imgPath);
+				tmp.put("pay", Integer.toString(proResult.getInt(5)));
 				res.add(tmp);
 			}
 		}

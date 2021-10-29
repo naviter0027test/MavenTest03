@@ -55,6 +55,11 @@ body {
     border-left: 3px solid #cc3399;
 }
 
+.admin-content .form1 p img {
+	width: 150px;
+	height: 150px;
+}
+
 .admin-content .form1 {
     padding: 10px;
 

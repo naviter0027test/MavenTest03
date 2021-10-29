@@ -29,6 +29,11 @@
 	text-align : center;
 }
 
+#content .body .product img {
+	width : 150px;
+	height : 150px;
+}
+
 #content .body .product {
 	padding : 3px 0 3px 0;
 }

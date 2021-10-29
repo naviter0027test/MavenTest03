@@ -32,7 +32,8 @@ public class ProjectModel {
 	private Statement stmt = null;
 	
 	private String filePath = new File( System.getProperty( "catalina.base" ) ).getAbsoluteFile()
-			+"/webapps/MavenTest03/upload";
+			+"/webapps/upload";
+	private String webPath = "/upload";
 	
 	public void connectMariaDB() throws SQLException, ClassNotFoundException {
     	
@@ -117,7 +118,13 @@ public class ProjectModel {
 				tmp.put("id", Integer.toString(result.getInt(1)));
 				tmp.put("title", result.getString(2));
 				tmp.put("desc", result.getString(3));
-				tmp.put("img", result.getString(4));
+				String imgPath = filePath+ "/"+ result.getString(4);
+				File imgFile = new File(imgPath);
+				if(imgFile.exists() == false)
+					imgPath = "https://fakeimg.pl/150/";
+				else
+					imgPath = webPath+ "/"+ result.getString(4);
+				tmp.put("img", imgPath);
 				tmp.put("pay", Integer.toString(result.getInt(5)));
 				Date createdDate = result.getDate(6);
 				tmp.put("createdDate", dateFormat.format(createdDate));

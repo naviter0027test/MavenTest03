@@ -47,7 +47,7 @@
 				<% for(int i = 0;i < list.size();++i) { %>
 				<% HashMap<String, String> item = (HashMap<String, String>) list.get(i); %>
 				<div class="product">
-					<img src="https://fakeimg.pl/150/" />
+					<img src='<%= (String) item.get("img") %>' />
 					<p>專案名 : <%= (String) item.get("title") %></p>
 					<p>一次捐款金額 : <%= (String) item.get("pay") %> NTD</p>
 					<a href="<%= request.getAttribute("root") %>/pay?pid=<%= (String) item.get("projectId") %>">前往捐款</a>
