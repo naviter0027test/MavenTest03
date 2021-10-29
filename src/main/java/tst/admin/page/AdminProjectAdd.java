@@ -51,7 +51,7 @@ public class AdminProjectAdd extends HttpServlet {
 			projectModel.connectMariaDB();
 			projectModel.add(req);
 			projectModel.closeMariaDB();
-			out.println("<meta http-equiv='refresh' content='3; url=admin-project-add'>");
+			out.println("<meta http-equiv='refresh' content='3; url=admin-project'>");
 		    out.println("儲存完成，等待跳轉<br />");
 		} catch (ServletException | IOException | SQLException | ClassNotFoundException e) {
 			out.println(e.getMessage());

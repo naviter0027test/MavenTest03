@@ -140,6 +140,15 @@
     	<servlet-class>tst.admin.page.AdminProjectEdit</servlet-class>
   	</servlet>
   	
+  	<servlet-mapping>
+        <servlet-name>AdminProjectRemove</servlet-name>
+        <url-pattern>/admin-project-remove</url-pattern>
+    </servlet-mapping>
+    <servlet>
+  		<servlet-name>AdminProjectRemove</servlet-name>
+    	<servlet-class>tst.admin.page.AdminProjectRemove</servlet-class>
+  	</servlet>
+  	
   	<session-config>
     	<session-timeout>120</session-timeout>
 	</session-config>

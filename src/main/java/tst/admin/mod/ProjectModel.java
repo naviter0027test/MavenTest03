@@ -24,6 +24,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
+import org.omg.CORBA.Request;
+
 public class ProjectModel {
 	private String connStr = "jdbc:mysql://192.168.3.40:3306/WarmLove?"
 			+ "user=skydep&password=d3c8b2ka"
@@ -240,4 +242,92 @@ public class ProjectModel {
         }
         return "";
     }
+	
+	public void update(HttpServletRequest req) throws Exception {	    
+		if(conn == null)
+			throw new SQLException("not connect");
+		int id = Integer.parseInt((String) req.getParameter("id")); 
+		String title = (String) req.getParameter("title");
+	    String desc = (String) req.getParameter("desc");
+	    int pay = Integer.parseInt((String) req.getParameter("pay"));
+	    Timestamp updatedDate = new Timestamp(System.currentTimeMillis());
+	    
+	    stmt = conn.createStatement();
+		String sql = "update Project set "
+				+ "`title` = ?, `desc` = ?, `pay` = ?, "
+				+ " `updatedDate` = ? "
+				+ " where id = ? ";
+    	PreparedStatement prepare = conn.prepareStatement(sql);
+    	prepare.setString(1, title);
+    	prepare.setString(2, desc);
+    	prepare.setInt(3, pay);
+    	prepare.setTimestamp(4, updatedDate);
+    	prepare.setInt(5, id);
+    	prepare.executeUpdate();
+		
+	    //以下是將上傳的圖檔存到指定位子
+	    OutputStream out = null;
+	    InputStream filecontent = null;
+		File fileSaveDir = new File(filePath);
+        if (!fileSaveDir.exists()) {
+            fileSaveDir.mkdir();
+        }
+        try {
+	        Part filePart = req.getPart("img");
+	        String fileContentType = filePart.getContentType();
+	        if(fileContentType.equals("image/jpeg") ||
+	        	fileContentType.equals("image/gif") ||
+	        	fileContentType.equals("image/png")) {
+	        	
+	        	String ext = ".jpg";
+	        	if(fileContentType.equals("image/gif"))
+	        		ext = ".gif";
+	        	else if(fileContentType.equals("image/png"))
+	        		ext = ".png";
+		        
+				sql = "update Project set img = ? where id = ?";
+				prepare = conn.prepareStatement(sql);
+				String filename = "image_"+ Integer.toString(id)+ ext;
+				prepare.setString(1, filename);
+				prepare.setInt(2, id);
+				prepare.executeUpdate();
+				
+				//將上傳的檔案存到指定地點
+				out = new FileOutputStream(new File(filePath + File.separator
+		                + filename));
+		        filecontent = filePart.getInputStream();
+		
+		        int read = 0;
+		        final byte[] bytes = new byte[1024];
+		
+		        while ((read = filecontent.read(bytes)) != -1) {
+		            out.write(bytes, 0, read);
+		        }
+	        }
+        } catch (FileNotFoundException fne) {
+            throw fne;
+        } catch (Exception e) {
+        	throw e;
+        } finally {
+            if (out != null) {
+                out.close();
+            }
+            if (filecontent != null) {
+                filecontent.close();
+            }
+        }
+	}
+	
+	public void remove(HttpServletRequest req) throws SQLException {
+		if(conn == null)
+			throw new SQLException("not connect");
+		int id = Integer.parseInt((String) req.getParameter("pid")); 
+	    
+	    stmt = conn.createStatement();
+		String sql = "delete from Project "
+				+ " where id = ? ";
+    	PreparedStatement prepare = conn.prepareStatement(sql);
+    	prepare.setInt(1, id);
+    	prepare.executeUpdate();
+	}
 }

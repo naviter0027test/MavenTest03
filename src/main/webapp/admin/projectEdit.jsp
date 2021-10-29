@@ -70,7 +70,7 @@
                     <input type="number" name="pay" required value='<%= (String) item.get("pay") %>' /> 
                     <label for="pay" class="error col-xs-12"></label>
                 </p>
-				<button>新增</button>
+				<button>修改</button>
 			</form>
 		</div>
 	</body>

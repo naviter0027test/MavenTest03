@@ -71,7 +71,7 @@
                         <td><%= (String) item.get("updatedDate") %></td>
                         <td>
                             <a href='admin-project-edit?pid=<%= (String) item.get("id") %>' class="glyphicon glyphicon-pencil"></a>
-                            <a href='admin-project-remove?pid=<%= (String) item.get("id") %>' class="glyphicon glyphicon-remove recordRemove"></a>
+                            <a href='admin-project-remove?pid=<%= (String) item.get("id") %>' class="glyphicon glyphicon-remove itemRemove"></a>
                         </td>
                     </tr>
                 <% } %>
@@ -95,4 +95,6 @@
             </div>
 		</div>
 	</body>
+	<script src="lib/jquery-2.1.4.min.js"></script>
+	<script src="js/admin/project.js"></script>
 </html>
